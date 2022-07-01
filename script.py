@@ -40,7 +40,7 @@ def menu_csv():
         list_files_array.append([num_file, i_files]) # matching between 
         num_file += 1
     print('------------------------------') 
-    csv_file = input('Entrer le nom de votre fichier XLS (-extraction). Tapez 0 si STOP.')
+    csv_file = input('Choisir le fichier à importer. Tapez 0 si STOP.')
     if csv_file == "0":
         export_csv()
     else:
