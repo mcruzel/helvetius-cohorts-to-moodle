@@ -13,6 +13,13 @@ This script use the folliwing libraries :
 - OleFileIO_PL
 - glob
 
+# Helvetius files
+
+*xls* files are obtained from Helvetius :
+Inscription > Extraire les étudiants
+
+Export format : Excel.
+
 # CSV Moodle Format
 
 | username            | lastname               | firstname | email | cohort1        |auth   |
