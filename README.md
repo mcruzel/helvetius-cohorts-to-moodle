@@ -10,3 +10,9 @@ This script use the folliwing libraries :
 - csv
 - OleFileIO_PL
 - glob
+
+# CSV Moodle Format
+
+| username            | lastname               | firstname | email | cohort1        |auth   |
+|---------------------|------------------------|-----------|-------|----------------|-------|
+| mail of the student | 1st letter capitalized |           |       | chosen cohort  |oauth2 |
