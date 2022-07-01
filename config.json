@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "name" :"cohortname (for menu)",
+        "cohort": "cohort_name_for_moodle"
+    },
+    {
+        "id": 2,
+        "name" :"cohortname (for menu)",
+        "cohort": "cohort_name_for_moodle"
+    }
+]
