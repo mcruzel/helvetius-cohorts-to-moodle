@@ -70,7 +70,7 @@ def cohort_choice_matching():
                 cohort_choice = i['cohort']
         print(cohort_choice)
 
-# Helvetius xls reasling
+# Helvetius xls reading
 def reading_csv():
     menu_cohort() # cohort choice before
     global lastnames_from_csv
