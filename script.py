@@ -44,7 +44,7 @@ def menu_csv():
     if csv_file == "0":
         export_csv()
     else:
-        csv_file = print(list_files_array[int(csv_file)][0])
+        csv_file = list_files_array[int(csv_file)][1]
         reading_csv()
 
 # choice cohort menu (from json file)
