@@ -26,13 +26,13 @@ for i in json_data:
    menu_content.append(i)
 
 # Menu functions
-num_file = 1
 list_files_array = []
 def menu_csv():
     global csv_file
     global num_file
     global list_files
     list_files = glob.glob(r"*.xls") # xls file listing
+    num_file = 1 # reset in each menu call
     print('---- MENU liste fichiers -----')
     for i_files in list_files:
        
@@ -44,12 +44,14 @@ def menu_csv():
     if csv_file == "0":
         export_csv()
     else:
+        csv_file = int(csv_file) - 1 # id of an array starts at 0
         csv_file = list_files_array[int(csv_file)][1]
         reading_csv()
 
 # choice cohort menu (from json file)
 def menu_cohort():
     global menu_cht_choice
+    print(csv_file)
     print('---- MENU choix cohorte -----')
     for ma in menu_content:
         print(str(ma['id'])+" -> "+ma['name'])
