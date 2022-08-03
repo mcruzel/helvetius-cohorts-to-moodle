@@ -1,11 +1,12 @@
 # Export Helvetius student file to Moodle
-# V. 1.0 (2022, June)
+# V. 1.1 (2022, August)
 # Maxime Cruzel
 
 import json
 import pandas as pd # XLS to CSV conversion
 import csv
-import OleFileIO_PL # XLS file "uncorrupting"
+import olefile
+#import OleFileIO_PL # XLS file "uncorrupting"
 import glob # files listing
 
 # arrays for CSV making
@@ -35,8 +36,9 @@ def menu_csv():
     num_file = 1 # reset in each menu call
     print('---- MENU liste fichiers -----')
     for i_files in list_files:
-       
-        print(str(num_file)+" -> "+i_files)
+        lecture_xls(i_files) # recuperate line 2 for Helvetius product and site
+        print(str(num_file)+" "+str(produit)+" ["+str(site)+"] -> "+i_files)
+        
         list_files_array.append([num_file, i_files]) # matching between 
         num_file += 1
     print('------------------------------') 
@@ -82,14 +84,17 @@ def reading_csv():
     print('lecture en cours')
     path = csv_file
     with open(path,'rb') as file:
-        ole = OleFileIO_PL.OleFileIO(file) # "uncorrupting" XLS file
+        #ole = OleFileIO_PL.OleFileIO(file) # "uncorrupting" XLS file
+        ole = olefile.OleFileIO(file)
         if ole.exists('Workbook'): # XLS file reading
             d = ole.openstream('Workbook')
-            x=pd.read_excel(d,engine='xlrd')   
+            print(str(d))
+            x=pd.read_excel(d, engine='xlrd')
+                        
     x.to_csv("a_supprimer.csv", index = None, header = True, sep=";") # csv "working file" generating
     df = pd.DataFrame(pd.read_csv("a_supprimer.csv", sep=";"))
     
-    with open('a_supprimer.csv', newline='') as csvfile:
+    with open('a_supprimer.csv', newline='', encoding='UTF-8') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in csvreader:
             if row[2] == "NOM": # header skipping
@@ -101,7 +106,6 @@ def reading_csv():
                 firstnames_from_csv.append(row[3])
                 emails_from_csv.append(row[11])
                 csv_final.append([row[11], lastname, row[3], row[11], cohort_choice, 'oauth2'])
-    print(csv_final)
     menu_csv()
 
 # CSV making function
@@ -114,5 +118,39 @@ def export_csv():
         writer.writerows(csv_final)
     f_csv_moodle.close()
     print('Travail terminé')
+    
+# Take the first cohort of Helvetius file for indications in menu
+def lecture_xls(file):
+    with open(file,'rb') as file_read:
+        #ole = OleFileIO_PL.OleFileIO(file) # "uncorrupting" XLS file
+        ole = olefile.OleFileIO(file_read)
+        if ole.exists('Workbook'): # XLS file reading
+            d = ole.openstream('Workbook')
+            #print(str(d))
+            x=pd.read_excel(d, engine='xlrd')
+                        
+    x.to_csv("a_supprimer_.csv", index = None, header = True, sep=";") # csv "working file" generating
+    df = pd.DataFrame(pd.read_csv("a_supprimer_.csv", sep=";"))
+    
+    # if error, check Diaeresis or other atypical characters on line 2
+    with open('a_supprimer_.csv', newline='', encoding='UTF-8') as csvfile:
+        csvreader = csv.reader(csvfile, delimiter=';', quotechar='|')
+        global produit
+        global site
+        produit = "non renseigné"
+        site = "non renseigné"
+        count = 0
+        while count < 2: #scan header + line 2 only
+            for row in csvreader:
+                count += 1
+                if row[2] == "NOM": # header skipping
+                    print()
+                elif count > 2:
+                    break # stop loop after line 2
+                else:
+                    produit = row[20]
+                    site = row[30]
+    #return "> ["+str(produit)+"] ["+site+"]"
+    
     
 menu_csv()
