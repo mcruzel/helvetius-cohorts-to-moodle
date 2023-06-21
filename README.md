@@ -1,6 +1,13 @@
 # helvetius-cohorts-to-moodle
 Export students *xls* listing from Helvetius, preconfigure cohorts listing (a json file), aud automatically create accounts on Moodle and put them in the aimed cohorts. **You need to create cohorts before**, the script will search cohorts by name (**by default : use system-wide cohorts**).
 
+The script will also attribute a Moodle idnumber with 7 digits based on Helvetius student id, following this rules :
+- The 3rd digits of the year (example : 023 for 2023)
+- The 4 last digits of the studentnumber (example : 0087 for 2023000087)
+- So, we will have, for an Helvetius student number (2023000087) : 0230087
+
+This idnumber is useful for offline_quiz plugin.
+
 Place the *xls* file(s) from Helvetius on the same folder of the script and *json* config files.
 
 You use this script with multiple *xls* files simultaneous.
