@@ -1,12 +1,18 @@
 [
     {
         "id": 1,
-        "name" :"cohortname (for menu)",
-        "cohort": "cohort_name_for_moodle"
+        "helvetius_formation" :"",
+        "helvetius_site": "",
+        "helvetius_produit": "",
+        "moodle_cohort_name": "group-on-helvetius",
+	    "moodle_cohort_merge_to": "curriculum-group-on-helvetius"
     },
     {
         "id": 2,
-        "name" :"cohortname (for menu)",
-        "cohort": "cohort_name_for_moodle"
+        "helvetius_formation" :"",
+        "helvetius_site": "",
+        "helvetius_produit": "",
+        "moodle_cohort_name": "group-on-helvetius",
+	    "moodle_cohort_merge_to": "curriculum-group-on-helvetius"
     }
 ]
